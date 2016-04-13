@@ -1,0 +1,156 @@
+package Ventanas;
+
+import Jugador.Jugador;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+
+
+public class VentanaPlayer extends JFrame {// Indicamos que VentanaPlayer hereda los atributos de JFrame
+	
+//DEFINICIÓN DE OBJETOS**********************************************************************************DEFINICIÓN OBJETOS
+	
+	private JPanel Panel;
+	private JLabel etiqNombre;
+	private JTextField textNombre;
+	private JLabel etiqApellido1;
+	private JTextField textApellido1;
+	private JLabel etiqApellido2;
+	private JTextField textApellido2;
+	private JLabel etiqEdad;
+	private JTextField textEdad;
+	private JTextField textConsola;
+	private JButton botonCrear;
+	private Jugador player;			//Definición clase Juegador para poder acceder a ella
+	private VentanaJuego vJuego;	//Definición de VentanaJuego para enviarle la información almacenada en Jugador
+	private VentanaMenu vMenu;		//Definición de VentanaMenu para crearla y visibilizarla
+	private VentanaPerfil vPerfil;	//Definición de VentanaPerfil para enviarle la información almacenada en Jugador
+	private VentanaPlayer refVenPl;	//Definición para esta ventana, para poder usar la referencia a ella y ocultarla
+	private JTextField textField;
+	
+//FIN DEFINICIÓN OBJETOS--------------------------------------------------------------------------------DEFINICIÓN OBJETOS
+	
+//CONSTRUCTOR**************************************************************************************************CONSTRUCTOR
+	
+	public VentanaPlayer() {
+		
+		//Objeto Player
+		player = new Jugador();
+		
+		//Objeto Ventana de Juego
+		vJuego = new VentanaJuego();
+		
+		//Objeto Ventana de Menú
+		vMenu = new VentanaMenu();
+		
+		//Objeto Ventana del Perfil
+		vPerfil = new VentanaPerfil();
+		
+		//Referencias
+		refVenPl=this;	//Enlazo el constructor con VentanaPlayer a través de su referencia
+		
+		//Propiedades de la ventana Jframe
+		setTitle("MATH DICE - Crea a tu jugador");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 244);
+		Panel = new JPanel();
+		Panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(Panel);
+		Panel.setLayout(null);
+		
+		// Etiqueta NOMBRE
+		etiqNombre = new JLabel("NOMBRE:");
+		etiqNombre.setBounds(10, 11, 69, 14);
+		Panel.add(etiqNombre);
+		
+		//Texto NOMBRE
+		textNombre = new JTextField();
+		textNombre.setBounds(104, 8, 320, 20);
+		Panel.add(textNombre);
+		textNombre.setColumns(10);
+		
+		//Etiqueta 1er APELLIDO
+		etiqApellido1 = new JLabel("1er APELLIDO:");
+		etiqApellido1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		etiqApellido1.setBounds(10, 39, 79, 14);
+		Panel.add(etiqApellido1);
+		
+		//Texto 1er APELLIDO
+		textApellido1 = new JTextField();
+		textApellido1.setColumns(10);
+		textApellido1.setBounds(104, 36, 320, 20);
+		Panel.add(textApellido1);
+		
+		//Etiqueta 2o APELLIDO
+		etiqApellido2 = new JLabel("2o APELLIDO:");
+		etiqApellido2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		etiqApellido2.setBounds(10, 64, 69, 14);
+		Panel.add(etiqApellido2);
+		
+		//Texto 2o APELLIDO
+		textApellido2 = new JTextField();
+		textApellido2.setColumns(10);
+		textApellido2.setBounds(104, 61, 320, 20);
+		Panel.add(textApellido2);
+		
+		//Etiqueta EDAD
+		etiqEdad = new JLabel("EDAD:");
+		etiqEdad.setBounds(10, 89, 69, 14);
+		Panel.add(etiqEdad);
+		
+		//Texto EDAD
+		textEdad = new JTextField();
+		textEdad.setColumns(2);
+		textEdad.setBounds(104, 86, 35, 20);
+		Panel.add(textEdad);
+		
+		//Texto CONSOLA
+		textConsola = new JTextField();
+		textConsola.setEditable(false);
+		textConsola.setHorizontalAlignment(SwingConstants.CENTER);
+		textConsola.setBounds(10, 148, 414, 49);
+		Panel.add(textConsola);
+		textConsola.setColumns(10);
+		
+
+		//Botón CREAR JUGADOR
+		botonCrear = new JButton("CREAR JUGADOR");
+		botonCrear.setBounds(10, 114, 414, 23);
+		Panel.add(botonCrear);
+		botonCrear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				player.setNombre(textNombre.getText());
+				player.setApellido1(textApellido1.getText());
+				player.setApellido2(textApellido2.getText());
+				
+				if(textEdad.getText().length()==0){
+					player.setEdad(-1);
+				}else{
+					player.setEdad(Integer.valueOf(textEdad.getText()));
+				}
+				
+				if(player.getFlag()==false){
+					
+					vJuego.setJugador(player);	//Envío a VentanaJuego el objeto player de class Jugador
+					vPerfil.setJugador(player);
+					
+					vMenu.setVisible(true);		//Hago visible la VentanaMenu
+					refVenPl.setVisible(false);	//Hago invisible pero no cierro esta ventana por si la necesito en un futuro
+				}else{
+					textConsola.setText(player.getContestacion());
+					player.setFlag(false);
+				}						
+			}
+		});
+					
+	}
+	
+//FIN CONSTRUCTOR----------------------------------------------------------------------------------------------CONSTRUCTOR
+}
