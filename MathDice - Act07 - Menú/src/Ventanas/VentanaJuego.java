@@ -274,7 +274,7 @@ public class VentanaJuego extends JPanel {
 	
 //MÉTODOS**********************************************************************************************************MÉTODOS
 
-	//Setter para jugador, por aquí recibo el objeto jugador y lo enlazo con la clase Jugador a través de esta ventana
+	//Recibo el objeto jugador
 	public void setJugador(Jugador p1) {
 		this.p1=p1;
 		infoJug.setText("Bienvenido/a al juego "+p1.getNombre());	

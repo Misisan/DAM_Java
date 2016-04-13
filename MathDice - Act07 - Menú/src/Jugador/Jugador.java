@@ -53,14 +53,11 @@ public class Jugador { //Definimos una class nueva llamada Jugador
 	}
 
 	public String getApellido2() {
-		return apellido1;
+		return apellido2;
 	}
 
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
-		if (apellido2.length()==0){
-			flag=true;
-		}
 	}
 	
 	public int getEdad() {

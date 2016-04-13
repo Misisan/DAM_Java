@@ -29,9 +29,7 @@ public class VentanaPlayer extends JFrame {// Indicamos que VentanaPlayer hereda
 	private JTextField textConsola;
 	private JButton botonCrear;
 	private Jugador player;			//Definición clase Juegador para poder acceder a ella
-	private VentanaJuego vJuego;	//Definición de VentanaJuego para enviarle la información almacenada en Jugador
 	private VentanaMenu vMenu;		//Definición de VentanaMenu para crearla y visibilizarla
-	private VentanaPerfil vPerfil;	//Definición de VentanaPerfil para enviarle la información almacenada en Jugador
 	private VentanaPlayer refVenPl;	//Definición para esta ventana, para poder usar la referencia a ella y ocultarla
 	private JTextField textField;
 	
@@ -44,14 +42,8 @@ public class VentanaPlayer extends JFrame {// Indicamos que VentanaPlayer hereda
 		//Objeto Player
 		player = new Jugador();
 		
-		//Objeto Ventana de Juego
-		vJuego = new VentanaJuego();
-		
 		//Objeto Ventana de Menú
 		vMenu = new VentanaMenu();
-		
-		//Objeto Ventana del Perfil
-		vPerfil = new VentanaPerfil();
 		
 		//Referencias
 		refVenPl=this;	//Enlazo el constructor con VentanaPlayer a través de su referencia
@@ -129,6 +121,7 @@ public class VentanaPlayer extends JFrame {// Indicamos que VentanaPlayer hereda
 				player.setNombre(textNombre.getText());
 				player.setApellido1(textApellido1.getText());
 				player.setApellido2(textApellido2.getText());
+				System.out.println(textApellido2.getText());
 				
 				if(textEdad.getText().length()==0){
 					player.setEdad(-1);
@@ -137,9 +130,9 @@ public class VentanaPlayer extends JFrame {// Indicamos que VentanaPlayer hereda
 				}
 				
 				if(player.getFlag()==false){
-					
-					vJuego.setJugador(player);	//Envío a VentanaJuego el objeto player de class Jugador
-					vPerfil.setJugador(player);
+					//Envío a VentanaMenu el objeto player de class Jugador
+					//y ahí ya se reenviará a su destino final ( VentanaJuego y VentanaPerfil )
+					vMenu.setJugador(player);	
 					
 					vMenu.setVisible(true);		//Hago visible la VentanaMenu
 					refVenPl.setVisible(false);	//Hago invisible pero no cierro esta ventana por si la necesito en un futuro

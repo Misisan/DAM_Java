@@ -21,6 +21,7 @@ public class VentanaPerfil extends JPanel {
 	private JTextField textoEdad;
 	private JLabel labelFoto;
 	private Jugador player1;
+	private ImageIcon fotoPerfil = new ImageIcon(getClass().getResource("/img/cabeza.png"));;
 
 //FIN DEFINICIÓN OBJETOS--------------------------------------------------------------------------------DEFINICIÓN OBJETOS
 
@@ -74,8 +75,6 @@ public class VentanaPerfil extends JPanel {
 		
 		//JLabel para la foto
 		labelFoto = new JLabel();
-		ImageIcon fotoPerfil = new ImageIcon(getClass().getResource("/img/cabeza.png"));
-		labelFoto.setIcon(fotoPerfil);
 		labelFoto.setBounds(10, 11, 150, 159);
 		add(labelFoto);
 				
@@ -85,15 +84,18 @@ public class VentanaPerfil extends JPanel {
 
 //MÉTODOS**********************************************************************************************************MÉTODOS
 	
+	//Recibo el objeto jugador del login via VentanaMenu
 	public void setJugador(Jugador player1) {
 		this.player1=player1;
 		textoNombre.setText(player1.getNombre());
 		textoApellido1.setText(player1.getApellido1());
-		textoApellido1.setText(player1.getApellido2());
+		textoApellido2.setText(player1.getApellido2());
 		textoEdad.setText(String.valueOf(player1.getEdad()));
 				
 		if(player1.getFoto()!= null){
 			labelFoto.setIcon(player1.getFoto());
+		}else{
+			labelFoto.setIcon(fotoPerfil);
 		}
 	}
 

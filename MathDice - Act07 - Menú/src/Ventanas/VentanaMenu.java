@@ -26,14 +26,15 @@ public class VentanaMenu extends JFrame {
 	private JMenu menu_opc1; 
 	private JMenuItem menu_item1_1;
 	private JMenuItem menu_item1_2;
+	private Jugador p1;
 		
 	//Identificadores para las ventanas del CardLayout
 	final static String VENTANA_JUEGO = "Juego en curso";
 	final static String VENTANA_PERFIL = "Perfil del jugador";
 	
 	//Ventanas para el CardLayout
-	VentanaJuego juego = new VentanaJuego();
-	VentanaPerfil perfil = new VentanaPerfil();
+	VentanaJuego juego = new VentanaJuego();	//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
+	VentanaPerfil perfil = new VentanaPerfil();	//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
 //FIN DEFINICIÓN OBJETOS--------------------------------------------------------------------------------DEFINICIÓN OBJETOS
 	
 //CONSTRUCTOR**************************************************************************************************CONSTRUCTOR
@@ -88,4 +89,16 @@ public class VentanaMenu extends JFrame {
 		
 	}
 //FIN CONSTRUCTOR----------------------------------------------------------------------------------------------CONSTRUCTOR
+	
+//MÉTODOS**********************************************************************************************************MÉTODOS
+	
+	public void setJugador(Jugador p1) {
+		//Recibo el objeto jugador del login
+		this.p1=p1;
+		//Reenvío el objeto jugador a los 2 JPanels que lo necesitan
+		juego.setJugador(p1);
+		perfil.setJugador(p1);
+	}
+	
+//FIN MÉTODOS------------------------------------------------------------------------------------------------------MÉTODOS
 }
