@@ -24,12 +24,16 @@ public class VentanaMenu extends JFrame {
 	final static String VENTANA_PERFIL = "Perfil del jugador";
 	
 	//Ventanas para el CardLayout
-	VentanaJuego juego = new VentanaJuego();	//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
-	VentanaPerfil perfil = new VentanaPerfil();	//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
+	VentanaJuego juego;		//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
+	VentanaPerfil perfil;	//Aprovecho este objeto VentanaJuego para enviar el objeto de la info del jugador
 //FIN DEFINICIÓN OBJETOS--------------------------------------------------------------------------------DEFINICIÓN OBJETOS
 	
 //CONSTRUCTOR**************************************************************************************************CONSTRUCTOR
 	public VentanaMenu() {
+		
+		//Creamos los objetos para las ventanas que albergarán los JPanel
+		juego = new VentanaJuego();
+		perfil = new VentanaPerfil();	
 		
 		//JFrame
 		setTitle("MATH DICE - \u00A1a jugar!");
@@ -91,6 +95,7 @@ public class VentanaMenu extends JFrame {
 	public void setJugador(Jugador p1) {
 		
 		//Reenvío el objeto jugador a los 2 JPanels que lo necesitan
+		//También reenvio las ventanas respectivamente para poder comunicarlas entre ellas
 		juego.setJugador(p1, perfil);
 		perfil.setJugador(p1, juego);
 	}

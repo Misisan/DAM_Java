@@ -41,16 +41,40 @@ public class usuarioBBDD {
 	
 //MÉTODOS**********************************************************************************************************MÉTODOS
 	
-	//Método para insertar usuarios en la BBDD
-	public void insertUsuario(String nombre, String apellido1, String apellido2, int edad){
+	//Método para insertar usuarios en la BBDD y después utilizarlo en el juego
+	public void insertUsuario(Jugador player){
 		
-		//
+		//Primero insertamos los datos del jugador en la BBDD
 		try {			
 			orden = conexion.createStatement();
-			String comandoSQL = "insert into usuarios (nombre, apellido1, apellido2, edad, puntos) values ('"+nombre+"', '"+apellido1+"', '"+apellido2+"', "+edad+", 0)";
+			String comandoSQL = "insert into usuarios (nombre, apellido1, apellido2, edad, puntos) values ('"+player.getNombre()+"', '"+player.getApellido1()+"', '"+player.getApellido2()+"', "+player.getEdad()+", 0)";
 			
 			orden.executeUpdate(comandoSQL);
-			//System.out.println("Usuario registrado con éxito");
+			
+		} catch (SQLException e) {	//Error en la consulta
+			e.printStackTrace();
+		} catch (Exception e2) {	//Cualquier otro error
+			e2.printStackTrace();
+		}
+		
+		//Después los recuperamos para poder obtener la ID del jugador creado
+		ResultSet resultado;
+		try{
+			orden = conexion.createStatement();
+			String comandoSQL = "select * from usuarios order by id desc limit 1";
+			resultado=orden.executeQuery(comandoSQL);
+						
+			//Recorremos el resultado obtenido (por el limit 1 sé que solo es uno).
+			//Rescatamos todos los datos de la BBDD porque así si ha habido algún fallo
+			//se reflejará automáticamente en la VentanaPerfil al mostrat toda la info.
+			while(resultado.next()){
+				player.setId(resultado.getInt("Id"));
+				player.setNombre(resultado.getString("nombre"));
+				player.setApellido1(resultado.getString("apellido1"));
+				player.setApellido2(resultado.getString("apellido2"));
+				player.setEdad(resultado.getInt("edad"));
+				player.setPuntos(resultado.getInt("puntos"));
+			}
 			
 		} catch (SQLException e) {	//Error en la consulta
 			e.printStackTrace();

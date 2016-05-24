@@ -145,7 +145,7 @@ public class Registro extends JFrame {// Indicamos que VentanaPlayer hereda los 
 						//y ahí ya se reenviará a su destino final ( VentanaJuego y VentanaPerfil )
 						vMenu.setJugador(player);
 						
-						userbbdd.insertUsuario(player.getNombre(), player.getApellido1(), player.getApellido2(), player.getEdad());
+						userbbdd.insertUsuario(player);
 						
 						vMenu.setVisible(true);		//Hago visible la VentanaMenu
 						refVenPl.setVisible(false);	//Hago invisible pero no cierro esta ventana por si la necesito en un futuro
